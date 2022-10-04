@@ -10,9 +10,9 @@ app.get('/webhooks',(req,res)=>{
     const challenge = req.query['hub.challenge'];
     const verify_token = req.query['hub.verify_token'];
     if(secret != verify_token ||  mode!= 'subscribe'){
-        res.status(200).send(challenge);
+        res.status(403);
     }
-    res.status(403);
+    res.status(200).send(challenge);
 });
 app.post('/webhooks', (req, res) => {
     const pno = req.body.entry[0].challenge[0].value.metadata.phone_number_id;
