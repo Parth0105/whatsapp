@@ -15,7 +15,8 @@ app.get('/webhooks',(req,res)=>{
     res.status(200).send(challenge);
 });
 app.post('/webhooks', (req, res) => {
-    console.log(req.body);
+    console.log(JSON.stringify(req.body));
+    res.status(200).send();
 });
 app.get('/', (req, res) => {
   res.status(200).send('Hello there');
