@@ -1,1 +1,1 @@
-export const secret = 'ghRt%6&7908GRECXdfghQ@213ioJL';
+module.exports = {secret : 'ghRt%6&7908GRECXdfghQ@213ioJL'};

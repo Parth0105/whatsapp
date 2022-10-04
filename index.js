@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParsesr = require('body-parser');
 const app = express().use(bodyParsesr.json());
 const { secret } = require('./config');
-app.listen(8080,()=>{
+app.listen(8000,()=>{
     console.log('Listening');
 });
 app.get('/webhooks',(req,res)=>{
