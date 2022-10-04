@@ -16,7 +16,7 @@ app.get('/webhooks',(req,res)=>{
 });
 app.post('/webhooks', (req, res) => {
     const val = req.body;
-    console.log("Id:::::::::::::::::::::::::::::", val, "::::::::::::::::::::::::::::::::::");
+    console.log("Id:::::::::::::::::::::::::::::", JSON.stringify(val), "::::::::::::::::::::::::::::::::::");
     res.status(200).send();
 });
 app.get('/', (req, res) => {
