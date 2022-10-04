@@ -15,9 +15,7 @@ app.get('/webhooks',(req,res)=>{
     res.status(200).send(challenge);
 });
 app.post('/webhooks', (req, res) => {
-    const pno = req.body.entry[0].challenge[0].value.metadata.phone_number_id;
-    const from = req.body.entry[0].challenge[0].value.messages[0].from;
-    console.log('from:::::::::::::', from, '::::::::::from');
+    console.log(req.body);
 });
 app.get('/', (req, res) => {
   res.status(200).send('Hello there');
