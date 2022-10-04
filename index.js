@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParsesr = require('body-parser');
 const app = express().use(bodyParsesr.json());
 const { secret } = require('./config');
-app.listen(process.env.PORT,()=>{
+app.listen(8000,()=>{
     console.log('Listening');
 });
 app.get('/webhooks',(req,res)=>{
@@ -15,7 +15,7 @@ app.get('/webhooks',(req,res)=>{
     res.status(200).send(challenge);
 });
 app.post('/webhooks', (req, res) => {
-    const val = req.body.entry[0].changes[0].contacts[0]['wa_id'];
+    const val = req.body.entry[0].changes[0].value.contacts[0]['wa_id'];
     console.log("Id:::::::::::::::::::::::::::::", val, "::::::::::::::::::::::::::::::::::");
     res.status(200).send();
 });
