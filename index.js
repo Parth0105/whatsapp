@@ -15,7 +15,8 @@ app.get('/webhooks',(req,res)=>{
     res.status(200).send(challenge);
 });
 app.post('/webhooks', (req, res) => {
-    console.log(JSON.stringify(req.body));
+    const val = req.body.entry[0].changes[0].contacts[0]['wa_id'];
+    console.log("Id:::::::::::::::::::::::::::::", val, "::::::::::::::::::::::::::::::::::");
     res.status(200).send();
 });
 app.get('/', (req, res) => {
