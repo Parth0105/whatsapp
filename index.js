@@ -15,7 +15,7 @@ app.get('/webhooks',(req,res)=>{
     res.status(200).send(challenge);
 });
 app.post('/webhooks', (req, res) => {
-    const val = req.body.entry[0].changes[0].value.messages;
+    const val = req.body;
     console.log("Id:::::::::::::::::::::::::::::", val, "::::::::::::::::::::::::::::::::::");
     res.status(200).send();
 });
