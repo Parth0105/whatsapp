@@ -2,6 +2,6 @@
 *.log
 
 # ignore node_modules
-node_modules
+node_modules/
 #ignore dist(ts files)
 dist/
