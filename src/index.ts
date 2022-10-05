@@ -1,7 +1,7 @@
-const express = require('express');
-const bodyParsesr = require('body-parser');
+import express = require('express');
+import bodyParsesr = require('body-parser');
 const app = express().use(bodyParsesr.json());
-const { secret } = require('./config');
+import { secret } from './config';
 app.listen(process.env.PORT,()=>{
     console.log('Listening');
 });
