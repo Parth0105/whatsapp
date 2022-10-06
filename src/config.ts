@@ -1,1 +1,1 @@
-export const secret = process.env.whatsapp_authorization_key;
+export const secret = 'ghRt%6&7908GRECXdfghQ@213ioJL';
