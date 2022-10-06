@@ -20,5 +20,5 @@ app.post('/webhooks', (req, res) => {
     res.status(200).send();
 });
 app.get('/', (req, res) => {
-  res.status(200).send('Hello there');
+  res.status(200).send('Server running');
 });
