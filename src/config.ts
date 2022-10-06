@@ -1,1 +1,1 @@
-export const secret = 'ghRt%6&7908GRECXdfghQ@213ioJL';
+export const secret = process.env.verify_token;
