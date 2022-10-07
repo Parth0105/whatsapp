@@ -52,6 +52,7 @@ app.get('/webhooks',(req,res)=>{
 });
 app.post('/webhooks', async (req, res) => {
     const val = req.body;
+    console.log(val);
     const baseURL = `https://graph.facebook.com/v15.0/${val.entry[0].changes[0].value.messages[0].image.id}`;
     const headers = {
       Authorization:'Bearer EAASSYxSdSZCEBAKJydLVkf9KjeZAM6ylxbOg2NnhDkZCRkDc4i8G3Xx23Cw9goIPcxuFIE0UR99w7MoLayAhiOWsLD24H4KC4iduSK0M7bjVxecolFG7uxgzUB3fl3617Mqrz6uMdHwg9pXiZBZCpSQZAb0Js4I2MYiaqOnPLGHNwj6as8CzqEpeEnMvIWs8HUR6KvvZBNVwQZDZD',
@@ -62,7 +63,6 @@ app.post('/webhooks', async (req, res) => {
     } catch (error) {
         res.status(500).send(error);
     }
-    console.log(response.data);
     res.status(200).send(response.data);
 });
 app.get('/', (req, res) => {
