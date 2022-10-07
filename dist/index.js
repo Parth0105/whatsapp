@@ -8,7 +8,6 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const axios_1 = __importDefault(require("axios"));
 const config_1 = require("./config");
 const app = (0, express_1.default)().use(body_parser_1.default.json());
-process.env.access_token = 'EAASSYxSdSZCEBAPin7z9NdZAZAo1Bl1c1xwe8LW57UdT4cmcImY8g1EqEDbJZBRQaKmuywqk4FvPpi2chLJ8pVZAvZAccuPaeWX9ijng5qUOllW5YZCbsVVqG9j44jZA7VnZBIZCN3mh3fIGac5NppskVznWre7ZAAMc6wZBeg8RTOjxABmYnfotM5wQ0VU5RdzI7bousEthN309NQZDZD';
 app.listen(process.env.PORT, async () => {
     console.log('Listening');
 });
