@@ -3,6 +3,7 @@ const bodyParsesr = require('body-parser');
 const app = express().use(bodyParsesr.json());
 import { secret } from './config';
 let axios;
+
 type mediaType = {
     "object": string,
         "entry": {
@@ -88,10 +89,15 @@ app.get('/webhooks',(req,res)=>{
 app.post('/webhooks', async (req, res) => {
     const val = req.body;
     console.log(JSON.stringify(val));
-    const imageId = val.entry[0].changes[0].value.messages[0].image.id || val.entry[0].changes[0].value.messages[0].document.id;
+    let imageId: string;
+    if (val.entry[0].changes[0].value.messages[0].image){
+        imageId = val.entry[0].changes[0].value.messages[0].image.id;
+    }else{
+        imageId = val.entry[0].changes[0].value.messages[0].document.id;
+    }
     const baseURL = `https://graph.facebook.com/v15.0/${imageId}`;
     const headers = {
-      Authorization:'Bearer EAASSYxSdSZCEBAKJydLVkf9KjeZAM6ylxbOg2NnhDkZCRkDc4i8G3Xx23Cw9goIPcxuFIE0UR99w7MoLayAhiOWsLD24H4KC4iduSK0M7bjVxecolFG7uxgzUB3fl3617Mqrz6uMdHwg9pXiZBZCpSQZAb0Js4I2MYiaqOnPLGHNwj6as8CzqEpeEnMvIWs8HUR6KvvZBNVwQZDZD',
+      Authorization:`Bearer ${process.env.access_token}`,
     };
     let response;
     try {

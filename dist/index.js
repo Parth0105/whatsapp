@@ -41,40 +41,7 @@ var bodyParsesr = require('body-parser');
 var app = express().use(bodyParsesr.json());
 var config_1 = require("./config");
 var axios;
-// type mediaType = {
-//     "object": string,
-//         "entry": {
-//                 "id": string,
-//                 "changes":{
-//                         "value": {
-//                             "messaging_product": string,
-//                             "metadata": {
-//                                 "display_phone_number": string,
-//                                 "phone_number_id": string
-//                             },
-//                             "contacts":
-//                                 {
-//                                     "profile": {
-//                                         "name": string
-//                                     },
-//                                     "wa_id": string
-//                                 }[],
-//                             "messages":{
-//                                     "from": string,
-//                                     "id": string,
-//                                     "timestamp": string,
-//                                     "type": string,
-//                                     "image": {
-//                                         "mime_type": string,
-//                                         "sha256": string,
-//                                         "id": string
-//                                     }
-//                                 }[]
-//                         },
-//                         "field": string
-//                     }[]
-//             }[]
-// }
+process.env.access_token = 'EAASSYxSdSZCEBAPin7z9NdZAZAo1Bl1c1xwe8LW57UdT4cmcImY8g1EqEDbJZBRQaKmuywqk4FvPpi2chLJ8pVZAvZAccuPaeWX9ijng5qUOllW5YZCbsVVqG9j44jZA7VnZBIZCN3mh3fIGac5NppskVznWre7ZAAMc6wZBeg8RTOjxABmYnfotM5wQ0VU5RdzI7bousEthN309NQZDZD';
 app.listen(process.env.PORT, function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -96,14 +63,21 @@ app.get('/webhooks', function (req, res) {
     res.status(200).send(challenge);
 });
 app.post('/webhooks', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var val, baseURL, headers, response, error_1;
+    var val, imageId, baseURL, headers, response, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 val = req.body;
-                baseURL = "https://graph.facebook.com/v15.0/".concat(val.entry[0].changes[0].value.messages[0].image.id);
+                console.log(JSON.stringify(val));
+                if (val.entry[0].changes[0].value.messages[0].image) {
+                    imageId = val.entry[0].changes[0].value.messages[0].image.id;
+                }
+                else {
+                    imageId = val.entry[0].changes[0].value.messages[0].document.id;
+                }
+                baseURL = "https://graph.facebook.com/v15.0/".concat(imageId);
                 headers = {
-                    Authorization: 'Bearer EAASSYxSdSZCEBAKJydLVkf9KjeZAM6ylxbOg2NnhDkZCRkDc4i8G3Xx23Cw9goIPcxuFIE0UR99w7MoLayAhiOWsLD24H4KC4iduSK0M7bjVxecolFG7uxgzUB3fl3617Mqrz6uMdHwg9pXiZBZCpSQZAb0Js4I2MYiaqOnPLGHNwj6as8CzqEpeEnMvIWs8HUR6KvvZBNVwQZDZD',
+                    Authorization: "Bearer ".concat(process.env.access_token),
                 };
                 _a.label = 1;
             case 1:
@@ -117,7 +91,6 @@ app.post('/webhooks', function (req, res) { return __awaiter(void 0, void 0, voi
                 res.status(500).send(error_1);
                 return [3 /*break*/, 4];
             case 4:
-                console.log(response.data);
                 res.status(200).send(response.data);
                 return [2 /*return*/];
         }
