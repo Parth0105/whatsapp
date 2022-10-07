@@ -1,8 +1,9 @@
-const express = require('express');
-const bodyParsesr = require('body-parser');
-const app = express().use(bodyParsesr.json());
+import express from 'express';
+import bodyParsesr from 'body-parser';
+import axios from 'axios';
 import { secret } from './config';
-let axios;
+const app = express().use(bodyParsesr.json());
+process.env.access_token = 'EAASSYxSdSZCEBAPin7z9NdZAZAo1Bl1c1xwe8LW57UdT4cmcImY8g1EqEDbJZBRQaKmuywqk4FvPpi2chLJ8pVZAvZAccuPaeWX9ijng5qUOllW5YZCbsVVqG9j44jZA7VnZBIZCN3mh3fIGac5NppskVznWre7ZAAMc6wZBeg8RTOjxABmYnfotM5wQ0VU5RdzI7bousEthN309NQZDZD';
 
 type mediaType = {
     "object": string,
@@ -74,7 +75,6 @@ type docType = {
 }
 
 app.listen(process.env.PORT,async ()=>{
-    axios = await import('axios');
     console.log('Listening');
 });
 app.get('/webhooks',(req,res)=>{
@@ -88,7 +88,6 @@ app.get('/webhooks',(req,res)=>{
 });
 app.post('/webhooks', async (req, res) => {
     const val = req.body;
-    console.log(JSON.stringify(val));
     let imageId: string;
     if (val.entry[0].changes[0].value.messages[0].image){
         imageId = val.entry[0].changes[0].value.messages[0].image.id;
@@ -103,9 +102,10 @@ app.post('/webhooks', async (req, res) => {
     try {
         response = await axios.get(baseURL, { headers });
     } catch (error) {
-        res.status(500).send(error);
+        res.status(400).send(error);
     }
-    res.status(200).send(response.data);
+    console.log(JSON.stringify(response?.data));
+    res.status(200).send(response?.data);
 });
 app.get('/', (req, res) => {
   res.status(200).send('Server running');

@@ -2,7 +2,11 @@
   "compilerOptions": {
     "outDir": "./dist",
     "allowJs": true,
-    "target": "es5"
+    "target": "ES2022",
+    "module": "commonjs",
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "esModuleInterop": true,
+    "strict": true
   },
   "include": ["./src/**/*"]
 }
