@@ -7,8 +7,13 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const axios_1 = __importDefault(require("axios"));
 const config_1 = require("./config");
+const selenium_webdriver_1 = require("selenium-webdriver");
+// import { ChromiumWebDriver } from 'selenium-webdriver';
+require("chromedriver");
+require("selenium-webdriver/firefox");
+const firefox_1 = require("selenium-webdriver/firefox");
 const app = (0, express_1.default)().use(body_parser_1.default.json());
-app.listen(process.env.PORT, async () => {
+app.listen(8000, async () => {
     console.log('Listening');
 });
 app.get('/webhooks', (req, res) => {
@@ -45,4 +50,27 @@ app.post('/webhooks', async (req, res) => {
 });
 app.get('/', (req, res) => {
     res.status(200).send('Server running');
+});
+app.get('/search', async (req, res) => {
+    // const ans = await axios.get("https://shopping.google.com/search?q=nike")
+    const screen = {
+        width: 1920,
+        height: 1080
+    };
+    var option = new firefox_1.Options();
+    option.setBinary("C:/Program Files/Mozilla Firefox/firefox.exe");
+    //when deploying to heroku uncomment below code
+    // option.addArguments("--headless");
+    // option.addArguments("--disable-gpu");
+    // option.addArguments("--no-sandbox");
+    // option.windowSize(screen);
+    var driver = new selenium_webdriver_1.Builder()
+        .forBrowser('firefox').setFirefoxOptions(option)
+        .build();
+    await driver.get("https://shopping.google.com");
+    const nike = await driver.findElement(selenium_webdriver_1.By.id("REsRA")).sendKeys("nike", selenium_webdriver_1.Key.RETURN);
+    // const title = await nike.getTitle()
+    // const body = await nike.getCurrentUrl()
+    console.log("driver" + nike);
+    // res.status(200).send(ans.data)
 });
