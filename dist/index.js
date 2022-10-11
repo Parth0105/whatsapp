@@ -13,7 +13,7 @@ require("chromedriver");
 require("selenium-webdriver/firefox");
 const firefox_1 = require("selenium-webdriver/firefox");
 const app = (0, express_1.default)().use(body_parser_1.default.json());
-app.listen(8000, async () => {
+app.listen(process.env.PORT, async () => {
     console.log('Listening');
 });
 app.get('/webhooks', (req, res) => {
