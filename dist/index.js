@@ -60,17 +60,24 @@ app.get('/search', async (req, res) => {
     var option = new firefox_1.Options();
     option.setBinary("C:/Program Files/Mozilla Firefox/firefox.exe");
     //when deploying to heroku uncomment below code
-    // option.addArguments("--headless");
-    // option.addArguments("--disable-gpu");
-    // option.addArguments("--no-sandbox");
-    // option.windowSize(screen);
+    option.addArguments("--headless");
+    option.addArguments("--disable-gpu");
+    option.addArguments("--no-sandbox");
+    option.windowSize(screen);
     var driver = new selenium_webdriver_1.Builder()
         .forBrowser('firefox').setFirefoxOptions(option)
         .build();
-    await driver.get("https://shopping.google.com");
-    const nike = await driver.findElement(selenium_webdriver_1.By.id("REsRA")).sendKeys("nike", selenium_webdriver_1.Key.RETURN);
-    // const title = await nike.getTitle()
-    // const body = await nike.getCurrentUrl()
-    console.log("driver" + nike);
+    let i = 0;
+    while (i < 10000) {
+        await driver.get("https://shopping.google.com");
+        await driver.findElement(selenium_webdriver_1.By.id("REsRA")).sendKeys("nike" + String(i), selenium_webdriver_1.Key.RETURN);
+        // driver.findElement(By.className("sh-dgr__content")).then((val)=>{
+        //     console.log(val)
+        // })
+        const title = await driver.getTitle();
+        const body = await driver.getCurrentUrl();
+        console.log("driver" + title);
+    }
+    i += 1;
     // res.status(200).send(ans.data)
 });

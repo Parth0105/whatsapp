@@ -81,7 +81,7 @@ type docType = {
     "object": string
 }
 
-app.listen(8000,async ()=>{
+app.listen(process.env.PORT,async ()=>{
     console.log('Listening');
 });
 app.get('/webhooks',(req: express.Request,res: express.Response)=>{
@@ -131,21 +131,31 @@ app.get('/search' , async(req: express.Request, res: express.Response)=>{
     var option =new Options()
     option.setBinary("C:/Program Files/Mozilla Firefox/firefox.exe")
     //when deploying to heroku uncomment below code
-    // option.addArguments("--headless");
-    // option.addArguments("--disable-gpu");
-    // option.addArguments("--no-sandbox");
-    // option.windowSize(screen);
+    option.addArguments("--headless");
+    option.addArguments("--disable-gpu");
+    option.addArguments("--no-sandbox");
+    option.windowSize(screen);
 
     var driver = new Builder()
     .forBrowser('firefox').setFirefoxOptions(option)
     .build();
+        let i=0
+    while(i<10000){
 
     await driver.get("https://shopping.google.com")
-    await driver.findElement(By.id("REsRA")).sendKeys("nike",Key.RETURN)
+    await driver.findElement(By.id("REsRA")).sendKeys("nike"+String(i),Key.RETURN)
+
+    driver.findElement(By.className("sh-dgr__content")).then((val)=>{
+        
+    })
     
     const title = await driver.getTitle()
     const body = await driver.getCurrentUrl()
     console.log("driver" +title)
+
+    }
+
+    i+=1
 
     // res.status(200).send(ans.data)
 })
